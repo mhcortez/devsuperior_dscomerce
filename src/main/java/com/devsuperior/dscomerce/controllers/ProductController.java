@@ -15,6 +15,8 @@ import com.devsuperior.dscomerce.dto.ProductDTO;
 import com.devsuperior.dscomerce.services.ProductService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping(value = "/products")
@@ -44,6 +46,12 @@ public class ProductController {
                   .buildAndExpand(dto.getId())
                   .toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
+        dto = service.update(id, dto);
+        return ResponseEntity.ok(dto);
     }
 
 }

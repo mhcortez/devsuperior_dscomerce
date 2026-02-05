@@ -1,13 +1,10 @@
 package com.devsuperior.dscomerce.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.devsuperior.dscomerce.dto.ProductDTO;
 import com.devsuperior.dscomerce.entities.Product;
 import com.devsuperior.dscomerce.repositories.ProductRepository;
@@ -29,5 +26,14 @@ public class ProductService {
         Page<Product> result = repository.findAll(pageable);
         return result.map(x -> new ProductDTO(x));
     }
-
+    @Transactional
+    public ProductDTO insert(ProductDTO dto) {
+        Product entity = new Product();
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setPrice(dto.getPrice());
+        entity.setImageUrl(dto.getImageUrl());
+        entity = repository.save(entity);
+        return new ProductDTO(entity);
+    }
 }

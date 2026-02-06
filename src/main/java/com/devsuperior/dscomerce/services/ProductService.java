@@ -31,8 +31,7 @@ public class ProductService {
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
-        entity.setImageUrl(dto.getImageUrl());
-        throw new UnsupportedOperationException("Unimplemented method 'copyDtoToEntity'");
+        entity.setImageUrl(dto.getImageUrl());       
     }
 
     @Transactional
@@ -43,7 +42,6 @@ public class ProductService {
         return new ProductDTO(entity);
     }
 
-
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto) {
         Product entity = repository.getReferenceById(id);        
@@ -52,4 +50,9 @@ public class ProductService {
         return new ProductDTO(entity);
     }
 
+    @Transactional
+    public void delete(Long id) {        
+        repository.deleteById(id);         
+    }
 }
+    
